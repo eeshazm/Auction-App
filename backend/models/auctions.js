@@ -42,7 +42,7 @@ const auctionSchema = new Schema({
     },
     status: {
         type: String,
-        required: false
+        required: true,
 
     },
     createdBy: {

@@ -5,8 +5,9 @@ import { createUser, getUsers, loginUser } from "../controllers/user.js";
 
 export const userRouter = express.Router();
 
-userRouter.post("/create", createUser);
+userRouter.post("/signup", createUser);
 userRouter.post("/get", getUsers);
-userRouter.post('/login', loginUser);
+//userRouter.get("/user/_id, getUser")
+userRouter.post('/', loginUser);
 
 // localhost:8000/user/get
