@@ -16,11 +16,10 @@ const Login = () => {
           return;
         }
         await axios.post("http://localhost:8000/user/", {username,password})
-      // console.log("res: ", res)
       .then(res=>{
         console.log(res.data)
         if(res.data ="Login successful" ){
-          history("/home", {state:{id:username}})
+          history("/home")
         }
         else if (res.data ="User not found"){
           alert("User not found")
@@ -33,7 +32,7 @@ const Login = () => {
         }
       })
       .catch(e=>{
-        alert(e)
+        alert("Login failed")
         console.log(e)
       })
 
@@ -41,11 +40,6 @@ const Login = () => {
     catch(e){
       console.log(e);
     }
-
-  
-   
-  
-    // console.log("Logging in with:", { username, password });
   };
 
   return (

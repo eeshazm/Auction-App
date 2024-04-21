@@ -1,11 +1,7 @@
 import { User } from "../models/user.js";
 import bcrypt from "bcrypt"
 import validator from "validator";
-import jsonwebtoken from "jsonwebtoken";
 
-const createToken = (_id) => {
-    return jsonwebtoken.sign({_id}, process.env.SECRET_KEY, { expiresIn: '3d' })
-  }
 
 export const createUser = async (req,res) => {
     try{
@@ -25,7 +21,6 @@ export const createUser = async (req,res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const user = await User.create({username,password : hashedPassword, itemsOwned: 0, auctionsCreated: 0});
-        const token = createToken(user._id)
         return res.status(201).json("Signup successful");
     }
     catch (error){
@@ -33,7 +28,7 @@ export const createUser = async (req,res) => {
     }
 };
 
-export const getUsers = async (req, res) => {
+export const getUser = async (req, res) => {
   try {
     const { username } = req.body;
 
@@ -46,8 +41,7 @@ export const getUsers = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    const token = createToken(user._id)
-    return res.status(200).json({ username, token });
+    return res.status(200).json({ username });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -73,7 +67,6 @@ export const loginUser = async (req, res) => {
         return res.status(401).json("Invalid password");
       }
 
-      const token = createToken(user._id)
       return res.status(200).json("Login successful");
     } catch (error) {
       return res.status(500).json({ error: error.message });

@@ -25,7 +25,7 @@ const Signup = () => {
             
         }
         else if (res.data ="Signup successful"){
-          history("/home", {state:{id:username}})
+          history("/home")
         }
         else{
           alert(res.data)

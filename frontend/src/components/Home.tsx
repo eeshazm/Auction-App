@@ -1,9 +1,8 @@
 import React from 'react';
-import '../css/home.css'; // Import custom CSS file
+import '../css/home.css';
 
 const Home = () => {
   const handleJoinNow = () => {
-    // Handle button click (e.g., navigate to registration page)
     console.log('Join Now button clicked');
   };
 
