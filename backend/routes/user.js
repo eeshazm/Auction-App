@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, getUser, loginUser, updateAuctionsCreated, incrementItemsOwned,getAuctions } from "../controllers/user.js";
+import { createUser, getUser, loginUser, updateAuctionsCreated, incrementItemsOwned,getAuctions, updatePassword } from "../controllers/user.js";
 
 
 
@@ -12,5 +12,6 @@ userRouter.post("/auctions", getAuctions);
 userRouter.post('/', loginUser);
 userRouter.post('/updateAuctions', updateAuctionsCreated);
 userRouter.post('/incrementItems', incrementItemsOwned);
+userRouter.post('/updatePassword', updatePassword);
 
 // localhost:8000/user/get

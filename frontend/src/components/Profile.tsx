@@ -57,7 +57,7 @@ const Profile: React.FC = () => {
             </div>
             <div className="profile-actions">
                 <button onClick={() => window.location.href = 'http://localhost:3000/createAuction'}>Create Auction</button>
-                <button onClick={() => window.location.href = '#'}>Update Password</button>
+                <button onClick={() => window.location.href = 'http://localhost:3000/updatePassword'}>Update Password</button>
             </div>
             <h3>My Auctions</h3>
             <div className="auction-list">

@@ -31,7 +31,7 @@ const CreateAuction: React.FC = () => {
          //   alert(username)
            const newRes = await axios.post('http://localhost:8000/user/updateAuctions', {username,auctionId});
            alert("auction added to user");
-           navigate("/browse")
+           navigate("/profile")
        } catch (error) {
             // alert(startingTime)
             // alert(endingTime)

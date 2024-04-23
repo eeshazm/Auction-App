@@ -129,3 +129,29 @@ export const loginUser = async (req, res) => {
       return res.status(500).json({ error: error.message });
     }
   };
+
+  export const updatePassword = async (req, res) => {
+    try {
+      const { username, oldPassword, newPassword } = req.body;
+
+      if (!username || !oldPassword || !newPassword ) {
+        return res.status(400).json({ error: "Username, old and new password are required" });
+      }
+
+      const user = await User.findOne({ username });
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+     
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!isMatch){
+        return res.status(401).json({ error: "Incorrect old password" });
+      }
+      user.password = await bcrypt.hash(newPassword, 10);
+      await user.save();
+      return res.status(200).json({ message: "Password updated successfully"});
+    } 
+    catch (error) {
+      return res.status(500).json({ error: "Failed to update password" });
+    }
+  };
