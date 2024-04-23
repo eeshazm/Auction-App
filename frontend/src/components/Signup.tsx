@@ -4,7 +4,7 @@ import { useNavigate} from "react-router-dom";
 import axios from "axios"
 
 const Signup = () => {
-  const history =useNavigate();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -14,18 +14,19 @@ const Signup = () => {
 
     try{
       if (!username || !password || password !== confirmPassword) {
-        alert("Please fill in all fields correctly.");
+        alert("Confirm password correctly.");
         return;
       }
       await axios.post("http://localhost:8000/user/signup", {username,password,confirmPassword})
       .then(res=>{
         console.log("R: ", res.data)
-        if(res.data =="Username already in use" ){
+        if(res.data.message ==="Username already in use" ){
           alert("User already exists")
             
         }
-        else if (res.data ="Signup successful"){
-          history("/home")
+        else if (res.data.message ==="Signup successful"){
+          sessionStorage.setItem("username", username);
+          navigate("/home")
         }
         else{
           alert(res.data)
@@ -39,14 +40,11 @@ const Signup = () => {
     catch(e){
       console.log(e);
     }
-  
-   
-    
-    // console.log("Signing up with:", { name, username, password });
+
   };
 
   return (
-    <div className="container">
+    <div className="signup_container">
       <form className="signup-form" onSubmit={handleSignup}>
         <h2>Signup</h2>
         <div className="form-group">

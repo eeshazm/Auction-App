@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Auction } from "./auction.js"
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
@@ -17,12 +18,11 @@ const userSchema = new Schema({
         required: true,
         min: 0
     },
-    auctionsCreated:{
-        type:Number,
-        required: true,
-        min: 0
-    },
-
+    auctionsCreated:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: "Auction",
+        required: true
+    }],
 })
 
 export const User = mongoose.model("User", userSchema);

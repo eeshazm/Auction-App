@@ -1,15 +1,6 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f4f8; /* Soft, neutral background color */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+
   
-  .container {
+  .container_login {
     max-width: 400px;
     padding: 40px;
     background-color: #ffffff;

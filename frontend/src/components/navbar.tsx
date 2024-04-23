@@ -4,10 +4,10 @@ import { useNavigate} from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
-    const history = useNavigate();
+    const navigate = useNavigate();
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        history("/");
+        sessionStorage.removeItem("username");
+        navigate("/");
       };
     return (
         <div>
@@ -18,10 +18,16 @@ export default function Navbar() {
                 Home
             </NavLink>
             </li>
-                <li>Browse</li>
+            <NavLink to="/browse" className="nav-link-home">
+                Browse
+            </NavLink>
             </span>
             <span className="sub-container"> 
-                <li><img src="../assets/user.png" width="40px" /></li>
+                <li>
+                <NavLink to="/profile" className="nav-link-profile">
+                    Profile
+                </NavLink>
+                </li>
                 <li className="logout" onClick={handleLogout}>Logout</li>
             </span>
         </ul>

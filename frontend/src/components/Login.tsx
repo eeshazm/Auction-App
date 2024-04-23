@@ -4,7 +4,7 @@ import { useNavigate} from "react-router-dom";
 import axios from "axios"
 
 const Login = () => {
-  const history =useNavigate();
+  const navigate =useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,25 +16,27 @@ const Login = () => {
           return;
         }
         await axios.post("http://localhost:8000/user/", {username,password})
-      .then(res=>{
-        console.log(res.data)
-        if(res.data ="Login successful" ){
-          history("/home")
-        }
-        else if (res.data ="User not found"){
-          alert("User not found")
-        }
-        else if (res.data ="Invalid password"){
-          alert("Invalid password")
-        }
-        else{
-          alert(res.data)
-        }
-      })
-      .catch(e=>{
-        alert("Login failed")
-        console.log(e)
-      })
+        .then(res=>{
+          // console.log("RRRRRRR",res.data)
+          if(res.data.message ==="Login successful" ){
+            sessionStorage.setItem("username", username);
+            navigate("/home")
+          }
+          else if (res.data.message === "User not found"){
+            alert("User not found")
+          }
+          else if (res.data.message ==="Invalid password"){
+            alert("Invalid password")
+          }
+          else{
+            alert(res.data.message)
+          }
+        })
+        .catch(e=>{
+          alert("Login failed")
+          // alert(e)
+          console.log(e)
+        })
 
     }
     catch(e){
@@ -43,7 +45,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container_login">
       <form className="login-form" onSubmit={handleLogin}>
         <h2>Login</h2>
         <div className="form-group">

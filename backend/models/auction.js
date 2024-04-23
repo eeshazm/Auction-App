@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { User } from '../models/user';
+import { User } from "./user.js"
 const Schema = mongoose.Schema
 
 const auctionSchema = new Schema({
@@ -9,7 +9,7 @@ const auctionSchema = new Schema({
 
     },
     description: {
-        type: Number,
+        type: String,
         required: true
 
     },
@@ -19,8 +19,8 @@ const auctionSchema = new Schema({
         min: 0
 
     },
-    currentPrice: {
-        type: String,
+    currentPrice:{
+        type: Number,
         required: true,
         min: 0
 
@@ -38,23 +38,13 @@ const auctionSchema = new Schema({
             return value > this.startingTime;
           },
           message: 'Ending time before starting time'
-
         }
     },
     status: {
         type: String,
         required: true,
 
-    },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User',
-      },
-    highestBidder: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
     }
 })
 
-export const Auction = mongoose.model("Auctions", auctionSchema);
+export const Auction = mongoose.model("Auction", auctionSchema);
