@@ -125,3 +125,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+#config.env files to hide uri and password for database
+backend/config.env
