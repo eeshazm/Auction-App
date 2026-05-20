@@ -1,4 +1,4 @@
-import { Socket, Server } from "socket.io";
+import { Server } from "socket.io";
 import http from "http";
 import { app } from "./app.js";
 import { config } from "dotenv";
@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
   console.log("USER CONNECTED:", socket.id); //event handlers here
 });
 
-app.listen(8000, () => {
+server.listen(8000, () => {
   console.log("Server is running on port 8000");
 });
 

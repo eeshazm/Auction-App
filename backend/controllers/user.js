@@ -1,6 +1,6 @@
 import { User } from "../models/user.js";
 import bcrypt from "bcrypt"
-import validator from "validator";
+
 
 
 export const createUser = async (req,res) => {
@@ -15,7 +15,7 @@ export const createUser = async (req,res) => {
     const exists = await User.findOne({ username })
 
     if (exists) {
-        return res.json({message: "Username already in use"})
+        return res.status(409).json({message: "Username already in use"})
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);

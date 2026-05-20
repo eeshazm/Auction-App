@@ -1,6 +1,4 @@
 import { Auction } from "../models/auction.js";
-import bcrypt from "bcrypt"
-import validator from "validator";
 
 export const getAllAuctions = async (req, res) => {
   try {
