@@ -2,46 +2,18 @@ import {useState,useEffect} from 'react';
 import '../css/profile.css'; 
 import { useNavigate} from "react-router-dom";
 import axios from "axios"
+import { Auction } from '../types';
 
-interface Auction {
-    title: string;
-    description: string;
-    startingPrice: number;
-    currentPrice: number;
-    startTime: string;
-    endTime: string;
-    status: string;
-}
-
-// const auctions: Auction[] = [
-//     {
-//         title: 'Auction 1',
-//         description: 'Description of Auction 1 goes here.',
-//         startingPrice: 100,
-//         currentPrice: 120,
-//         startTime: '10:00 AM',
-//         endTime: '12:00 PM',
-//         status: 'Ongoing',
-//     },
-//     {
-//         title: 'Auction 2',
-//         description: 'Description of Auction 2 goes here.',
-//         startingPrice: 50,
-//         currentPrice: 70,
-//         startTime: '11:00 AM',
-//         endTime: '1:00 PM',
-//         status: 'Concluded',
-//     },
-// ];
 
 const Profile: React.FC = () => {
     const [auctions, setAuctions] = useState<Auction[]>([]);
     const navigate = useNavigate();
+    const username = sessionStorage.getItem("username");
 
     useEffect(() => {
-        axios.get<Auction[]>('http://localhost:8000/user/auctions')
+        axios.post<{ auctionsCreated: Auction[] }>('http://localhost:8000/user/auctions', { username })
             .then(response => {
-                setAuctions(response.data); 
+                setAuctions(response.data.auctionsCreated);
             })
             .catch(error => {
                 console.error('Error fetching auctions:', error);
@@ -51,13 +23,13 @@ const Profile: React.FC = () => {
         <div className="profile_container">
             <div className="profile-info">
                 <div className="user-details">
-                    <h2>Name: John Doe</h2>
-                    <p>Username: johndoe123</p>
+                    <h2>Name: {username}</h2>
+                    <p>Username: {username}</p>
                 </div>
             </div>
             <div className="profile-actions">
-                <button onClick={() => window.location.href = 'http://localhost:3000/createAuction'}>Create Auction</button>
-                <button onClick={() => window.location.href = 'http://localhost:3000/updatePassword'}>Update Password</button>
+                <button onClick={() => navigate('/createAuction')}>Create Auction</button>
+                <button onClick={() => navigate('/updatePassword')}>Update Password</button>
             </div>
             <h3>My Auctions</h3>
             <div className="auction-list">
